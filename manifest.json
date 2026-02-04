@@ -3,7 +3,6 @@
   "name": "Personal Script Runner",
   "description": "Execute collection of shell scripts from a directory",
   "developer_name": "Ansori, M.",
-  "version": "1.0.0",
   "icon": "images/icon.png",
   "main_path": "main.py",
   "preferences": [
