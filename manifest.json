@@ -1,0 +1,32 @@
+{
+  "required_api_version": "^2.0.0",
+  "name": "Personal Script Runner",
+  "description": "Execute collection of shell scripts from a directory",
+  "developer_name": "Ansori, M.",
+  "version": "1.0.0",
+  "icon": "images/icon.png",
+  "main_path": "main.py",
+  "preferences": [
+    {
+      "id": "sh_kw",
+      "type": "keyword",
+      "name": "SH Runner",
+      "default_value": "sh",
+      "description": "Keyword to trigger script search (e.g., sh)"
+    },
+    {
+      "id": "scripts_dir",
+      "type": "text",
+      "name": "Scripts Directory",
+      "default_value": "$HOME/script",
+      "description": "The directory where your .sh collection is stored"
+    },
+    {
+      "id": "terminal_emulator",
+      "type": "text",
+      "name": "Terminal Emulator",
+      "default_value": "gnome-terminal",
+      "description": "Terminal to use for scripts that require interaction"
+    }
+  ]
+}
