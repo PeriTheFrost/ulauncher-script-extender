@@ -16,37 +16,53 @@ class ScriptRunner(Extension):
         self.subscribe(KeywordQueryEvent, KeywordQueryEventListener())
         self.subscribe(ItemEnterEvent, ItemEnterEventListener())
 
+    def expand_path(self, path):
+        """Helper to handle ~ and $VARs"""
+        if not path:
+            return ""
+        return os.path.expanduser(os.path.expandvars(path))
+
 class KeywordQueryEventListener(EventListener):
     def on_event(self, event, extension):
         items = []
         query = (event.get_argument() or "").lower()
         
-        # Handle ~/ to /home/user and $HOME variable environtment
-        raw_path = extension.preferences['scripts_dir']
-        scripts_dir = os.path.expanduser(os.path.expandvars(raw_path))
+        raw_paths = extension.preferences['scripts_dir'].split(',')
+        
+        all_scripts = []
+        for p in raw_paths:
+            p = p.strip()
+            if not p or p.startswith('!'):
+                continue
+            
+            scripts_dir = extension.expand_path(p)
+            
+            if os.path.exists(scripts_dir):
+                try:
+                    for f in os.listdir(scripts_dir):
+                        if f.endswith('.sh'):
+                            all_scripts.append({
+                                "filename": f,
+                                "full_path": os.path.join(scripts_dir, f)
+                            })
+                except Exception:
+                    continue
 
-        if not os.path.exists(scripts_dir):
+        filtered = [s for s in all_scripts if query in s['filename'].lower()][:10]
+
+        if not filtered and not query:
             return RenderResultListAction([
-                ExtensionResultItem(
-                    icon='images/icon.png', 
-                    name="Directory Not Found", 
-                    description=f"Tried to expand to: {scripts_dir}")
+                ExtensionResultItem(icon='images/icon.png', name="No scripts found", description="Add some .sh files to your configured directories.")
             ])
 
-        # Scan all file .sh
-        scripts = [f for f in os.listdir(scripts_dir) if f.endswith('.sh')]
-        filtered = [s for s in scripts if query in s.lower()][:10]
-
         for script in filtered:
-            full_path = os.path.join(scripts_dir, script)
-            # Create name view (remove .sh and change dash/underscore with space)
-            display_name = script.replace('.sh', '').replace('-', ' ').replace('_', ' ').title()
+            display_name = script['filename'].replace('.sh', '').replace('-', ' ').replace('_', ' ').title()
             
             items.append(ExtensionResultItem(
                 icon='images/icon.png',
                 name=display_name,
-                description=f"Run: {script}",
-                on_enter=ExtensionCustomAction(full_path)
+                description=f"Path: {script['full_path']}",
+                on_enter=ExtensionCustomAction(script['full_path'])
             ))
 
         return RenderResultListAction(items)
@@ -54,13 +70,10 @@ class KeywordQueryEventListener(EventListener):
 class ItemEnterEventListener(EventListener):
     def on_event(self, event, extension):
         script_path = event.get_data()
-        terminal = extension.preferences['terminal_emulator']
-        
-        # Make sure terminal emulator support expansion path if any
-        terminal_cmd = os.path.expanduser(os.path.expandvars(terminal))
+        terminal = extension.expand_path(extension.preferences['terminal_emulator'])
         
         subprocess.Popen([
-            terminal_cmd, 
+            terminal, 
             "--", "bash", "-c", 
             f"chmod +x '{script_path}'; '{script_path}'; echo -e '\n--- Script Finished ---'; read -p 'Press Enter to close...'"
         ])

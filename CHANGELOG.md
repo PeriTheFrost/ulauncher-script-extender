@@ -11,6 +11,7 @@ All notable changes to the **SH Script Runner** extension will be documented in 
 - **Terminal Integration**: Scripts are executed within a terminal emulator (configurable) to support interactive commands and output viewing.
 - **Dynamic Formatting**: Script filenames are automatically cleaned for the Ulauncher UI (removes extensions, replaces dashes/underscores with spaces, and applies title casing).
 - **Interactive Preferences**: Added configuration UI for Scripts Directory and Terminal Emulator choice.
+- **Multiple Base Path**: Added support multiple base path.
 
 ### Fixed
 - Fixed `ModuleNotFoundError` by updating imports to Ulauncher API v2.0.0 (`ExtensionResultItem`).

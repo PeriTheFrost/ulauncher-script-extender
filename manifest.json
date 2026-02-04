@@ -17,15 +17,15 @@
       "id": "scripts_dir",
       "type": "text",
       "name": "Scripts Directory",
-      "default_value": "$HOME/script",
-      "description": "The directory where your .sh collection is stored"
+      "default_value": "$HOME/script, ~/scriptv2, !$HOME/scriptv3",
+      "description": "The directory where your .sh collection is stored. Separate with commas. Use '!' prefix to disable a path."
     },
     {
       "id": "terminal_emulator",
       "type": "text",
       "name": "Terminal Emulator",
       "default_value": "gnome-terminal",
-      "description": "Terminal to use for scripts that require interaction"
+      "description": "The command to open your terminal (e.g., gnome-terminal, xfce4-terminal, or konsole)"
     }
   ]
 }
