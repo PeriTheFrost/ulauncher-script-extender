@@ -22,7 +22,7 @@ If you keep handy shell scripts for everyday tasks (open projects, toggle servic
 1. Open your Ulauncher extensions folder:
     - `~/.local/share/ulauncher/extensions/`
 2. Clone this repository into that directory:
-    - `git clone <REPO_URL> ulauncher-ext-sh-runner`
+    - `git clone https://github.com/oriewancu/ulauncher-ext-sh-runner`
 3. Restart Ulauncher.
 
 ### Update
