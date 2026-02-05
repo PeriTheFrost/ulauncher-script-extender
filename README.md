@@ -1,9 +1,12 @@
-# Personal Script Runner
+# 🚀 Personal Script Runner
 
 A lightweight Ulauncher extension to run your personal `.sh` script collection quickly.
 
-## Why
+## ✨ Why
 If you keep handy shell scripts for everyday tasks (open projects, toggle services, sync notes, etc.), this extension helps you trigger them from Ulauncher without remembering paths or typing long commands.
+
+## Overview
+![Overview](overview.png)
 
 ## Requirements
 - Ulauncher (v5 recommended)

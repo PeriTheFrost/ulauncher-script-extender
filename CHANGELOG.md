@@ -2,6 +2,11 @@
 
 All notable changes to the **SH Script Runner** extension will be documented in this file.
 
+## [1.0.1] - 2026-02-05
+
+### Added
+- **Support Multiple Terminal**: gnome-terminal, konsole, xfce4-terminal and konsole.
+
 ## [1.0.0] - 2026-02-04
 
 ### Added

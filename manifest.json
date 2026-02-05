@@ -22,10 +22,16 @@
     },
     {
       "id": "terminal_emulator",
-      "type": "text",
+      "type": "select",
       "name": "Terminal Emulator",
+      "description": "Select your terminal emulator",
       "default_value": "gnome-terminal",
-      "description": "The command to open your terminal (e.g., gnome-terminal, xfce4-terminal, or konsole)"
+      "options": [
+        {"text": "Gnome (gnome-terminal)", "value": "gnome-terminal"},
+        {"text": "Xfce (xfce4-terminal)", "value": "xfce4-terminal"},
+        {"text": "KDE Terminal (konsole)", "value": "konsole"},
+        {"text": "Terminator (terminator)", "value": "terminator"}
+      ]
     }
   ]
 }

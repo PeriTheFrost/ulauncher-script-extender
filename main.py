@@ -68,15 +68,54 @@ class KeywordQueryEventListener(EventListener):
         return RenderResultListAction(items)
 
 class ItemEnterEventListener(EventListener):
+    def run_terminal_command(self, terminal, working_dir, command=None):
+        """Helper terminal emulator"""
+        # 1. Konsole (KDE)
+        if "konsole" in terminal:
+            args = [terminal, "--workdir", working_dir]
+            if command:
+                args += ["-e", "bash", "-ic", command]
+            else:
+                args += ["-e", "bash"]
+            subprocess.Popen(args)
+
+        # 2. XFCE4 Terminal
+        elif "xfce4-terminal" in terminal:
+            full_command = f"bash -ic \"{command}\""
+            args = [terminal, "--working-directory", working_dir, "-e", full_command]
+            subprocess.Popen(args)
+
+        # 3. Terminator
+        elif "terminator" in terminal:
+            args = [terminal, "--working-directory", working_dir]
+            if command:
+                args += ["-x", "bash", "-ic", command]
+            else:
+                args += ["-x", "bash"]
+            subprocess.Popen(args)
+
+        # 4. GNOME Terminal / Default
+        else:
+            args = [terminal, "--working-directory", working_dir, "--"]
+            if command:
+                args += ["bash", "-ic", command]
+            else:
+                args += ["bash"]
+            subprocess.Popen(args)
+
     def on_event(self, event, extension):
         script_path = event.get_data()
+        working_dir = os.path.dirname(script_path) 
+        
         terminal = extension.expand_path(extension.preferences['terminal_emulator'])
         
-        subprocess.Popen([
-            terminal, 
-            "--", "bash", "-c", 
-            f"chmod +x '{script_path}'; '{script_path}'; echo -e '\n--- Script Finished ---'; read -p 'Press Enter to close...'"
-        ])
+        cmd = (
+            f"chmod +x '{script_path}'; '{script_path}'; "
+            f"echo -e '\\n--- Script Finished ---'; "
+            f"read -p 'Press Enter to close...'"
+        )
+
+        self.run_terminal_command(terminal, working_dir, command=cmd)
 
         return HideWindowAction()
 
