@@ -32,6 +32,13 @@
         {"text": "KDE Terminal (konsole)", "value": "konsole"},
         {"text": "Terminator (terminator)", "value": "terminator"}
       ]
+    },
+    {
+      "id": "python_command",
+      "type": "input",
+      "name": "Python Command",
+      "description": "Command used to run python scripts",
+      "default_value": "python3"
     }
   ]
 }

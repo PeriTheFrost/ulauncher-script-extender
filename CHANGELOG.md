@@ -2,6 +2,11 @@
 
 All notable changes to the **SH Script Runner** extension will be documented in this file.
 
+## [1.0.2] - 2026-02-06
+
+### Added
+- **Support Script Python**: fill with python or python3 (default) in the configuration.
+
 ## [1.0.1] - 2026-02-05
 
 ### Added
