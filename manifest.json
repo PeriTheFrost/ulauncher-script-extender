@@ -2,7 +2,7 @@
   "required_api_version": "^2.0.0",
   "name": "Personal Script Runner",
   "description": "Execute collection of shell scripts from a directory",
-  "developer_name": "Ansori, M.",
+  "developer_name": "Peri the Frost",
   "icon": "images/icon.png",
   "main_path": "main.py",
   "preferences": [
@@ -30,7 +30,9 @@
         {"text": "Gnome (gnome-terminal)", "value": "gnome-terminal"},
         {"text": "Xfce (xfce4-terminal)", "value": "xfce4-terminal"},
         {"text": "KDE Terminal (konsole)", "value": "konsole"},
-        {"text": "Terminator (terminator)", "value": "terminator"}
+        {"text": "Terminator (terminator)", "value": "terminator"},
+        {"text": "Kitty (kitty)", "value": "kitty"},
+        {"text": "Alacritty (alacritty)", "value": "alacritty"}
       ]
     },
     {
