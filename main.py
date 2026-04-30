@@ -104,9 +104,23 @@ class ItemEnterEventListener(EventListener):
             subprocess.Popen(args)
 
         # 4. GNOME Terminal / Default
-        else:
+        elif "gnome-terminal":
             args = [terminal, "--working-directory", working_dir, "--"]
             if command: args += ["bash", "-ic", command]
+            else: args += ["bash"]
+            subprocess.Popen(args)
+
+        # 5. Kitty
+        elif "kitty":
+            args = [terminal, "--working-directory", working_dir, "--"]
+            if command: args += ["bash", command]
+            else: args += ["bash"]
+            subprocess.Popen(args)
+
+        # 6. Alacritty
+        else:
+            args = [terminal, "--working-directory", working_dir, "--"]
+            if command: args += ["bash", command]
             else: args += ["bash"]
             subprocess.Popen(args)
 
